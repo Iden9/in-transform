@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>infinity-tranform</title>
+</head>
+<!--s-->
+<style>
+    #shell {
+        width: 300px;
+        height: 200px;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+
+    #block {
+        width: max-content;
+    }
+
+    #block .item {
+        width: 300px;
+        height: 200px;
+        float: left;
+    }
+
+    #block .item:nth-child(1) {
+        background-color: red;
+    }
+
+    #block .item:nth-child(2) {
+        background-color: orange;
+    }
+
+    #block .item:nth-child(3) {
+        background-color: yellow;
+    }
+
+    #block .item:nth-child(4) {
+        background-color: green;
+    }
+
+    #prev,
+    #next {
+        color: black;
+        position: absolute;
+        top: 100px;
+    }
+
+    #prev {
+        left: 30px;
+    }
+
+    #next {
+        left: 250px;
+    }
+</style>
+
+<body>
+    <div id="shell">
+
+        <div id="block">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+
+        <div id="prev"> prev </div>
+        <div id="next"> next </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    const block = document.getElementById('block');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    // block.style.transform = "translateX(-300px)";
+    let index = 0;
+    prev.onclick = function () {
+        if (index > 0) {
+            index--;
+            block.style.transform = "translateX(" + index * -300 + "px)";
+        }else{
+            console.log("zd");
+
+        }
+    }
+    next.onclick =  function(){
+        if(index < 3){
+            index++;
+            block.style.transform = "translateX(" + index * -300 + "px)";
+        }else{
+            console.log("zd");
+        }
+    }
+</script>
