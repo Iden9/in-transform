@@ -17,7 +17,9 @@
 
     #block {
         width: max-content;
+        transition: all .5s;
     }
+
 
     #block .item {
         width: 300px;
@@ -25,19 +27,19 @@
         float: left;
     }
 
-    #block .item:nth-child(1) {
+    #block .red {
         background-color: red;
     }
 
-    #block .item:nth-child(2) {
+    #block .orange {
         background-color: orange;
     }
 
-    #block .item:nth-child(3) {
+    #block .yellow {
         background-color: yellow;
     }
 
-    #block .item:nth-child(4) {
+    #block .green {
         background-color: green;
     }
 
@@ -61,10 +63,10 @@
     <div id="shell">
 
         <div id="block">
-            <div class="item">1</div>
-            <div class="item">2</div>
-            <div class="item">3</div>
-            <div class="item">4</div>
+            <div class="item red">1</div>
+            <div class="item orange">2</div>
+            <div class="item yellow">3</div>
+            <div class="item green">4</div>
         </div>
 
         <div id="prev"> prev </div>
@@ -80,22 +82,50 @@
     const prev = document.getElementById('prev');
     const next = document.getElementById('next');
     // block.style.transform = "translateX(-300px)";
-    let index = 0;
-    prev.onclick = function () {
-        if (index > 0) {
-            index--;
-            block.style.transform = "translateX(" + index * -300 + "px)";
-        }else{
-            console.log("zd");
 
+
+
+    let currentIndex = 0;
+
+    function moveTo(index) {
+        block.style.transform = `translateX(${index * -300}px)`;
+        block.style.transition = "all .5s";
+        currentIndex = index
+    }
+    function init() {
+        // 在第一个元素前面复制添加一个最后的元素
+
+        const firstCloned = block.firstElementChild.cloneNode(true)
+        const lastCloned = block.lastElementChild.cloneNode(true)
+
+        block.appendChild(firstCloned)
+        block.insertBefore(lastCloned, block.firstElementChild)
+        lastCloned.style.marginLeft = "-300px"
+    }
+    init()
+    function left() {
+        if (currentIndex === 0) {
+            block.style.transition = "none"
+            block.style.transform = `translateX(${-4 * 300}px)`
+            block.clientWidth
+            moveTo(4-1)
+
+        } else {
+            moveTo(currentIndex - 1)
         }
     }
-    next.onclick =  function(){
-        if(index < 3){
-            index++;
-            block.style.transform = "translateX(" + index * -300 + "px)";
-        }else{
-            console.log("zd");
+    function right() {
+        if (currentIndex === 3) {
+            block.style.transition = "none"
+            block.style.transform = `translateX(${300}px)`
+            block.clientWidth
+            moveTo(0)
+
+        } else {
+            moveTo(currentIndex + 1)
         }
     }
+
+    prev.onclick = left
+    next.onclick = right
 </script>
